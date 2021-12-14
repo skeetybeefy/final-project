@@ -48,14 +48,28 @@ function PokemonContainer({caught}) {
             <p className="no-caught-msg">You haven't caught any pokemon yet</p> : 
             <section className="pokemon-container">
                 {caught.map(pokemon => {
-                        return <Pokemon id={pokemon.data.id} name={pokemon.data.name} img={pokemon.data.sprites.front_default} key={pokemon.data.id}/>})}
+                        return <Pokemon 
+                        id={pokemon.data.id} 
+                        name={
+                            pokemon.data.name.length > 16 ?
+                            `${pokemon.data.name.slice(0,7)}...${pokemon.data.name.slice(pokemon.data.name.length - 7, pokemon.data.name.length)}` : pokemon.data.name
+                            } 
+                        img={pokemon.data.sprites.front_default} 
+                        key={pokemon.data.id}/>})}
             </section>
             )
         }
         return (
                 <section className="pokemon-container">
                     {pokemon.map(pokemon => {
-                            return <Pokemon id={pokemon.data.id} name={pokemon.data.name} img={pokemon.data.sprites.front_default} key={pokemon.data.id}/>
+                            return <Pokemon 
+                            id={pokemon.data.id} 
+                            name={
+                                pokemon.data.name.length > 16 ?
+                                `${pokemon.data.name.slice(0,7)}...${pokemon.data.name.slice(pokemon.data.name.length - 7, pokemon.data.name.length)}` : pokemon.data.name
+                            } 
+                            img={pokemon.data.sprites.front_default} 
+                            key={pokemon.data.id}/>
                     })}
                 </section>
         )
