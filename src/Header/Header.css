@@ -1,0 +1,26 @@
+header {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    color: rgb(215, 207, 255);
+    background-color: rgb(12, 8, 33);
+    text-decoration: underline;
+    text-decoration-thickness: 5%;
+    font-size: 1.2rem;
+}
+
+.header-item {
+    margin: auto 20px;
+}
+
+a:visited {
+    color: rgb(215, 207, 255);
+    text-decoration-thickness: 5%;
+}
+
+@media (min-width: 1024px) {
+    header {
+        justify-content: start;
+    }
+    
+}
