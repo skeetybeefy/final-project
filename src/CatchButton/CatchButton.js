@@ -6,7 +6,9 @@ function CatchButton({id}) {
 
     const pokemon = useContext(PokemonContext)
 
-    const [disabled, setDisabled] = useState(!!pokemon.data[id - 1].data.caught)
+    const [disabled, setDisabled] = useState(!!pokemon.data.filter(pokemon => {
+        return pokemon.data.id === id
+    })[0].data.caught)
 
     function catchPokemon() {
         pokemon.setData(

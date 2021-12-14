@@ -12,30 +12,41 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [error, setError] = useState(null)
   const [needFetching, setNeedFetching] = useState(false)
+  const [nextLink, setNextLink] = useState("https://pokeapi.co/api/v2/pokemon?limit=100&offset=0")
 
-  useEffect(() => {     
+  useEffect(() => {
+
+    if (nextLink !== null) {
       (async () => {
-          let count = 1 // try to use useReducer instead of this mess
+        try {
+          const response = await axios.get(nextLink)
+          const data = response.data
 
           try {
-              const resp = await Promise.all(
-                  Array(40).fill(null).map(() => {
-                      let promise = axios.get(`https://pokeapi.co/api/v2/pokemon/${count + pokemonData.length}`)
-                      count++
-                      return promise
-                  })
-              )
-              setPokemonData([...pokemonData, ...resp])
-              setIsLoaded(true)
+            setNextLink(data.next)
+
+            const exactResponse = await Promise.all(
+              data.results.map(pokemon => {
+                return axios.get(pokemon.url)
+              })
+            )
+            setPokemonData([...pokemonData, ...exactResponse])
+            setIsLoaded(true)
           }
-          catch(err) {
-              setError(err)
-              setIsLoaded(true)
+          catch(error) {
+            setError(error)
+            setIsLoaded(true)
           }
-          finally {
-              setNeedFetching(false)
-          }
+        }
+        catch(error) {
+          setError(error)
+        }
+        finally {
+          setNeedFetching(false)
+        }
+        
       })()
+    }
   }, [needFetching])
 
   return (
