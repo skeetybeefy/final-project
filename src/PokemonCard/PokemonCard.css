@@ -16,3 +16,9 @@
 .pokemon-card > p {
     text-align: center;
 }
+
+@media (min-width: 1024px) {
+    .pokemon-card {
+        margin: 10px 300px;
+    }
+}
